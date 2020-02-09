@@ -1,0 +1,43 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<div >
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Original Url</th>
+            <th scope="col">Short URL</th>
+            <th scope="col">Visits</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for link in pages.items %}
+                <tr>
+                    <td>{{ link.original_url }}</td>
+                    <td>{{ link.short_url }}</td>
+                    <td>{{ link.visits }}</td>
+                </tr>
+            {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+  <ul>
+    {% if pages.has_prev %}
+      <li><a href="./?page={{ pages.prev_num }}">Назад</a></li>
+    {% endif %}
+    {% for page in pages.iter_pages() %}
+      <li>
+      {% if page != pages.page %}
+        <a name='page_num' value="{{pages.page}}" href="./?page={{ page }}">{{ page }}</a>
+      {% else %}
+        <a style="color: black;">{{ page }}</a>
+      {% endif %}
+      </li>
+    {% endfor %}
+    {% if pages.has_next %}
+      <li><a href="./?page={{ pages.next_num }}">Вперёд</a></li>
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}

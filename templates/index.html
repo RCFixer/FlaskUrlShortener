@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Short Url
+{% endblock %}
+
+{% block content_title %}
+{% endblock %}
+
+{% block content %}
+<div class="mx-auto col-md-6" style="margin-top: 30%">
+	<form method="POST" action="{{ url_for('index') }}">
+		{% for field in form %}
+		
+		<div class="form-group">
+			{{ field.label(class='control-label') }}
+			{{ field(class='form-control', placeholder='Type here your full URL') }}
+		</div>
+		
+		{% endfor %}
+		<button style="width:100%" type="submit justify-content-center" class="btn btn-success">Cut URL!</button>
+	</form>
+
+	    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'success' %}
+                <input class="form-control mt-3" placeholder="Get here your short URL" value="{{ url_for('redirect_to_url',short_url=message, _external=True) }}">
+                {% elif category == 'error' %}
+                <div class="alert alert-success" style="margin-top:10px;" role="alert">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+	
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Stats
+{% endblock %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Original Url</th>
+            <th scope="col">Short URL</th>
+            <th scope="col">Visits</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for link in pages.items %}
+                <tr>
+                    <td>{{ link.original_url }}</td>
+                    <td>{{ link.short_url }}</td>
+                    <td>{{ link.visits }}</td>
+                </tr>
+            {% endfor %}
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if pages.has_prev %}
+      <li class="page-item"><a class="page-link" href="./stats?page={{ pages.prev_num }}">Prev</a></li>
+    {% endif %}
+    {% for page in pages.iter_pages() %}
+      <li class="page-item">
+      {% if page != pages.page %}
+        <a class="page-link" name='page_num' value="{{pages.page}}" href="./stats?page={{ page }}">{{ page }}</a>
+      {% else %}
+        <a class="page-link">{{ page }}</a>
+      {% endif %}
+      </li>
+    {% endfor %}
+    {% if pages.has_next %}
+      <li class="page-item"><a class="page-link" href="./stats?page={{ pages.next_num }}">Next</a></li>
+    {% endif %}
+  </ul>
+</div>
+
+{% endblock %}
