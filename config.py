@@ -8,3 +8,7 @@ class Configuration(object):
     ### Flask-security ###
     SECURITY_PASSWORD_SALT = 'salt'
     SECURITY_PASSWORD_HASH = 'sha512_crypt'
+    SECURITY_REGISTERABLE = True
+    SECURITY_REGISTER_URL = '/register'
+    SECURITY_SEND_REGISTER_EMAIL = False
+    SECURITY_USER_IDENTITY_ATTRIBUTES = 'email'
